@@ -47,9 +47,15 @@ public class SpringDataJpaDemoprojectApplication implements CommandLineRunner {
 		studentRepository.save(s1);
 		studentRepository.save(s2);
 
-		logger.info("\nStudents under G1 : {}\n", studentRepository.getByGuardianEmail("G1@gmail.com"));
-		logger.info("\nStudents containing \"dharsh\" in their first name : {}\n", studentRepository.getByFirstNameContaining("dharsh"));
-		logger.info("\nStudents having last name : {}\n", studentRepository.getByLastNameNotNull());
+		logger.info("\nStudents under G1 : {}\n", studentRepository.findByGuardianEmail("G1@gmail.com"));
+		logger.info("\nStudents containing \"dharsh\" in their first name : {}\n", studentRepository.findByFirstNameContaining("dharsh"));
+		logger.info("\nStudents having last name : {}\n", studentRepository.findByLastNameNotNull());
+		logger.info("\nStudents with guardian email G1@gmail.com : {}\n", studentRepository.getGuardianEmail_JPQLVersion("G1@gmail.com"));
+		logger.info("\nStudents' first name with guardian email G1@gmail.com : {}\n", studentRepository.getFirstNameGivenGuardianEmail_JPQLVersion("G1@gmail.com"));
+		logger.info("\nStudents name with guardian email S1@gmail.com : {}\n", studentRepository.getFirstNameGivenStudentEmail_NativeQueryMethod("S1@gmail.com"));
+		logger.info("\nUpdating the first name of s1 from Beepee to Sara and second name from Ravichandran to Vijayakumar\n");
+		studentRepository.updateFirstNameGivenStudentEmail_NativeQueryMethod("S1@gmail.com", "Sara", "Vijayakumar");
+		logger.info("\nAll students : {}\n", studentRepository.findAll());
 	}
 
 }
